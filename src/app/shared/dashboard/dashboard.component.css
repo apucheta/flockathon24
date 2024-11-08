@@ -1,0 +1,103 @@
+.section {
+  padding: 2rem 0;
+  min-height: calc(100vh - 64px);
+  margin-top: 64px;
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 2rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+}
+
+.job-offers-card {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.job-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.job-details-card, .candidates-card {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.selected-job {
+  background-color: var(--gradient-start) !important;
+  color: var(--white) !important;
+}
+
+.selected-job ::ng-deep .mdc-list-item__primary-text {
+  color: var(--white) !important;
+}
+
+.candidates-table {
+  width: 100%;
+}
+
+.match-cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem !important;
+}
+
+.percentage {
+  min-width: 48px;
+  text-align: right;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+mat-progress-bar {
+  flex: 1;
+}
+
+::ng-deep {
+  .mat-mdc-progress-bar {
+    --mdc-linear-progress-active-indicator-color: var(--gradient-start);
+  }
+
+  .mat-mdc-chip.mat-mdc-chip-selected {
+    background-color: var(--gradient-start) !important;
+  }
+
+  .mat-mdc-card-header-text {
+    margin: 0;
+  }
+
+  .mat-mdc-card-title {
+    color: var(--text-color) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+}

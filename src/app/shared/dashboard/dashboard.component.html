@@ -1,0 +1,87 @@
+<div class="section">
+  <div class="section-container">
+    <h1 class="section-title">Dashboard Ofertas</h1>
+
+    <div class="dashboard-grid">
+      <mat-card class="job-offers-card">
+        <mat-card-header>
+          <mat-card-title>Ofertas de Trabajo</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-nav-list>
+            <a
+              mat-list-item
+              *ngFor="let job of jobOffers"
+              (click)="selectJob(job)"
+              [class.selected-job]="selectedJob?.id === job.id"
+            >
+              {{ job.title }}
+            </a>
+          </mat-nav-list>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="job-details-container" *ngIf="selectedJob">
+        <mat-card class="job-details-card">
+          <mat-card-header>
+            <mat-card-title>{{ selectedJob.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p><strong>Empresa:</strong> {{ selectedJob.company }}</p>
+            <p><strong>Ubicación:</strong> {{ selectedJob.location }}</p>
+            <p><strong>Rango Salarial:</strong> {{ selectedJob.salary }}</p>
+            <mat-chip-listbox>
+              <mat-chip color="primary" selected>Activa</mat-chip>
+            </mat-chip-listbox>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="candidates-card">
+          <mat-card-header>
+            <mat-card-title
+              >Candidatos (Por Porcentaje de Match)</mat-card-title
+            >
+          </mat-card-header>
+          <mat-card-content>
+            <table
+              mat-table
+              [dataSource]="candidatesDataSource"
+              class="candidates-table"
+            >
+              <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                <td mat-cell *matCellDef="let candidate">
+                  {{ candidate.name }}
+                  <mat-icon
+                    *ngIf="candidate.changes > 3"
+                    matTooltip="Candidato con cambios frecuentes de trabajo"
+                    (click)="openAlertModal(candidate)"
+                    >warning</mat-icon
+                  >
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="matchPercentage">
+                <th mat-header-cell *matHeaderCellDef>Match</th>
+                <td mat-cell *matCellDef="let candidate" class="match-cell">
+                  <mat-progress-bar
+                    mode="determinate"
+                    [value]="candidate.matchPercentage"
+                    color="primary"
+                  >
+                  </mat-progress-bar>
+                  <span class="percentage"
+                    >{{ candidate.matchPercentage }}%</span
+                  >
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
