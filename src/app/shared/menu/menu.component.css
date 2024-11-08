@@ -1,0 +1,15 @@
+.mat-sidenav-container {
+  height: 100vh;
+}
+
+.mat-nav-list {
+  background-color: #f5f5f5;
+}
+
+.mat-list-item {
+  color: black;
+}
+
+.mat-icon {
+  color: black;
+}

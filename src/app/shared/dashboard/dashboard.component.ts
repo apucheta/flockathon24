@@ -5,6 +5,7 @@ import { ICandidate } from '../../core/interfaces/i-candidate';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalAlertaComponent } from '../modal-alerta/modal-alerta.component';
 import { DashboardService } from '../../services/dashboard.service';
+import { FilterCriteria } from '../filter/filter.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +24,7 @@ export class DashboardComponent implements OnInit {
   selectedJob: IJobOffer;
   candidatesDataSource: MatTableDataSource<ICandidate>;
   displayedColumns: string[] = ['nombre', 'matchPercentage'];
+  currentSection: string = 'Dashboard';
 
   constructor(private readonly dialog: MatDialog, private readonly dashboardService: DashboardService) {
     this.selectedJob = this.jobOffers[0];
@@ -52,6 +54,15 @@ export class DashboardComponent implements OnInit {
   openAlertModal(candidate: ICandidate) {
     this.dialog.open(ModalAlertaComponent, {
       data: candidate
+    });
+  }
+  applyFilter(filterCriteria: FilterCriteria) {
+    this.candidatesDataSource.data = this.candidates.filter(candidate => {
+      const experienceMatch = !filterCriteria.experience || candidate.experience === filterCriteria.experience;
+      const skillsMatch = filterCriteria.skills.length === 0 || filterCriteria.skills.every(skill => candidate.skills.includes(skill));
+      const percentageMatch = candidate.matchPercentage >= filterCriteria.minMatchPercentage;
+
+      return experienceMatch && skillsMatch && percentageMatch;
     });
   }
 }
